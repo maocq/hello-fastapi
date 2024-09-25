@@ -13,5 +13,5 @@ async def http_client_session(limit = 100):
 class Container(containers.DeclarativeContainer):
     # wiring_config = containers.WiringConfiguration(modules=["main"])
     http_client = providers.Resource(http_client_session, limit=100)
-    user_repository = providers.Factory(UserHttpRepository, http_client=http_client)
-    create_user_use_case = providers.Factory(CreateUserUsecase, user_repository=user_repository)
+    user_repository = providers.Singleton(UserHttpRepository, http_client=http_client)
+    create_user_use_case = providers.Singleton(CreateUserUsecase, user_repository=user_repository)
